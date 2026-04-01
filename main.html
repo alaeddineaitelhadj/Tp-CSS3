@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Correction TP CSS3</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="topbar-brand" href="#">
+      <div class="topbar-icon">C</div>
+      CSS3 — Correction TP
+    </a>
+  </header>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="sidebar-label">Exercices</div>
+      <nav>
+        <a href="#ex1"><span class="num">01</span> Sélecteurs</a>
+        <a href="#ex2"><span class="num">02</span> Box Model</a>
+        <a href="#ex3"><span class="num">03</span> Flexbox</a>
+        <a href="#ex4"><span class="num">04</span> Grid</a>
+        <a href="#ex5"><span class="num">05</span> Responsive</a>
+        <a href="#ex6"><span class="num">06</span> Variables CSS</a>
+        <a href="#ex7"><span class="num">07</span> Animations</a>
+        <a href="#ex8"><span class="num">08</span> Quiz</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+
+      <div class="page-header">
+        <h1>Travaux Pratiques CSS3</h1>
+      </div>
+
+      <!-- EX 1 -->
+      <section class="section" id="ex1">
+        <div class="section-head">
+          <span class="ex-pill">EX 01</span>
+          <h2>Sélecteurs & Spécificité</h2>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-title">1.1 — Sélecteurs CSS</span>
+          </div>
+          <div class="card-body">
+            <ul class="sel-list">
+              <li>
+                <span class="sel-arrow">→</span>
+                <span class="desc">Tous les liens dans la navigation</span>
+                <code>.main-nav a</code>
+              </li>
+              <li>
+                <span class="sel-arrow">→</span>
+                <span class="desc">Lien actif</span>
+                <code>.main-nav a.active</code>
+              </li>
+              <li>
+                <span class="sel-arrow">→</span>
+                <span class="desc">Article avec classe featured</span>
+                <code>.post.featured</code>
+              </li>
+              <li>
+                <span class="sel-arrow">→</span>
+                <span class="desc">Premier paragraphe de chaque article</span>
+                <code>article p:first-of-type</code>
+              </li>
+              <li>
+                <span class="sel-arrow">→</span>
+                <span class="desc">Éléments li pairs</span>
+                <code>li:nth-child(even)</code>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-title">1.2 — Spécificité (ordre croissant)</span>
+          </div>
+          <div class="card-body">
+            <table class="spec-table">
+              <thead>
+                <tr><th>Rang</th><th>Sélecteur</th><th>Type</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="rank">1</span></td><td><code>p</code></td><td style="color:var(--text3)">Élément HTML</td></tr>
+                <tr><td><span class="rank">2</span></td><td><code>.text</code></td><td style="color:var(--text3)">Classe</td></tr>
+                <tr><td><span class="rank">3</span></td><td><code>p.text</code></td><td style="color:var(--text3)">Élément + Classe</td></tr>
+                <tr><td><span class="rank">4</span></td><td><code>#main</code></td><td style="color:var(--text3)">ID</td></tr>
+                <tr><td><span class="rank">5</span></td><td><code>#main .text p</code></td><td style="color:var(--text3)">ID + Classe + Élément</td></tr>
+              </tbody>
+            </table>
+            <div class="callout callout-warning">
+              <span class="callout-icon">⚠</span>
+              <span>Si même spécificité, <strong>la dernière règle définie gagne</strong>. Évitez <code>!important</code> — cela casse la logique de la cascade et complique la maintenance.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EX 2 -->
+      <section class="section" id="ex2">
+        <div class="section-head">
+          <span class="ex-pill">EX 02</span>
+          <h2>Box Model</h2>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-title">2.1 — Calcul de largeur</span>
+          </div>
+          <div class="card-body">
+            <div class="formula-row">
+              <span class="formula-label fl-cb">content-box</span>
+              <span class="formula-eq">300 + (2×20) + (2×5)</span>
+              <span style="color:var(--text3)">=</span>
+              <span class="formula-result res-amber">350px</span>
+            </div>
+            <div class="formula-row">
+              <span class="formula-label fl-bb">border-box</span>
+              <span class="formula-eq">padding + border inclus dans width</span>
+              <span style="color:var(--text3)">=</span>
+              <span class="formula-result res-green">300px</span>
+            </div>
+            <pre style="margin-top:12px;"><span class="cm">/* Reset CSS universel recommandé */</span>
+* {
+  <span class="prop">box-sizing</span>: <span class="val">border-box</span>;
+}</pre>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-title">2.2 — Centrage horizontal et vertical</span>
+          </div>
+          <div class="card-body">
+            <pre>div {
+  <span class="prop">width</span>: <span class="val">600px</span>;
+  <span class="prop">margin</span>: <span class="val">auto</span>;
+  <span class="prop">height</span>: <span class="val">100vh</span>;
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">justify-content</span>: <span class="val">center</span>;
+  <span class="prop">align-items</span>: <span class="val">center</span>;
+}</pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- EX 3 -->
+      <section class="section" id="ex3">
+        <div class="section-head">
+          <span class="ex-pill">EX 03</span>
+          <h2>Flexbox</h2>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-title">3.1 — Navbar</span>
+          </div>
+          <div class="card-body">
+            <pre><span class="sel">.navbar</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">justify-content</span>: <span class="val">space-between</span>;
+  <span class="prop">align-items</span>: <span class="val">center</span>;
+}
+
+<span class="sel">.nav-links</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">gap</span>: <span class="val">20px</span>;
+}</pre>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-title">3.2 — Cartes avec lien ancré en bas</span>
+          </div>
+          <div class="card-body">
+            <pre><span class="sel">.cards</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">gap</span>: <span class="val">20px</span>;
+}
+
+<span class="sel">.card</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">flex-direction</span>: <span class="val">column</span>;
+}
+
+<span class="sel">.card-link</span> {
+  <span class="prop">margin-top</span>: <span class="val">auto</span>; <span class="cm">/* pousse le lien en bas */</span>
+}</pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- EX 4 -->
+      <section class="section" id="ex4">
+        <div class="section-head">
+          <span class="ex-pill">EX 04</span>
+          <h2>Grid</h2>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-title">4.1 — Grille responsive automatique</span>
+          </div>
+          <div class="card-body">
+            <pre><span class="sel">.grid-cards</span> {
+  <span class="prop">display</span>: <span class="val">grid</span>;
+  <span class="prop">grid-template-columns</span>: <span class="val">repeat(auto-fit, minmax(200px, 1fr))</span>;
+  <span class="prop">gap</span>: <span class="val">20px</span>;
+}</pre>
+            <div class="callout callout-info">
+              <span class="callout-icon">ℹ</span>
+              <span><code>auto-fit</code> + <code>minmax()</code> crée une grille responsive sans media queries.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-title">4.2 — Layout avec grid-template-areas</span>
+          </div>
+          <div class="card-body">
+            <pre><span class="sel">.page-layout</span> {
+  <span class="prop">display</span>: <span class="val">grid</span>;
+  <span class="prop">grid-template-areas</span>:
+    <span class="str">"header header"</span>
+    <span class="str">"sidebar main"</span>
+    <span class="str">"footer footer"</span>;
+}
+
+<span class="sel">.header</span>  { <span class="prop">grid-area</span>: <span class="val">header</span>; }
+<span class="sel">.sidebar</span> { <span class="prop">grid-area</span>: <span class="val">sidebar</span>; }
+<span class="sel">.main</span>    { <span class="prop">grid-area</span>: <span class="val">main</span>; }
+<span class="sel">.footer</span>  { <span class="prop">grid-area</span>: <span class="val">footer</span>; }</pre>
+            <div class="grid-preview">
+              <div class="gp gp-h">header</div>
+              <div class="gp gp-s">sidebar</div>
+              <div class="gp gp-m">main</div>
+              <div class="gp gp-f">footer</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EX 5 -->
+      <section class="section" id="ex5">
+        <div class="section-head">
+          <span class="ex-pill">EX 05</span>
+          <h2>Responsive Design</h2>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-title">Media Queries — Approche Mobile First</span>
+          </div>
+          <div class="card-body">
+            <div class="bp-row">
+              <span class="bp-badge bp-tablet">Tablet ≥ 768px</span>
+              <span class="bp-desc">Navigation en ligne, sidebar visible</span>
+            </div>
+            <pre style="margin:10px 0;"><span class="at">@media</span> (<span class="prop">min-width</span>: <span class="val">768px</span>) {
+  <span class="sel">.nav-menu</span> { <span class="prop">flex-direction</span>: <span class="val">row</span>; }
+  <span class="sel">.sidebar</span>  { <span class="prop">display</span>: <span class="val">block</span>; }
+}</pre>
+            <div class="bp-row">
+              <span class="bp-badge bp-desktop">Desktop ≥ 1024px</span>
+              <span class="bp-desc">Mise en page multi-colonnes</span>
+            </div>
+            <pre style="margin-top:10px;"><span class="at">@media</span> (<span class="prop">min-width</span>: <span class="val">1024px</span>) {
+  <span class="sel">.content</span> { <span class="prop">display</span>: <span class="val">flex</span>; }
+}</pre>
+            <div class="callout callout-success">
+              <span class="callout-icon">✓</span>
+              <span>On utilise <code>min-width</code> (et non <code>max-width</code>) pour respecter l'approche <strong>mobile-first</strong>.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EX 6 -->
+      <section class="section" id="ex6">
+        <div class="section-head">
+          <span class="ex-pill">EX 06</span>
+          <h2>Variables CSS</h2>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-title">Thème clair / sombre avec custom properties</span>
+          </div>
+          <div class="card-body">
+            <pre><span class="sel">:root</span> {
+  <span class="prop">--bg</span>:   <span class="val">white</span>;
+  <span class="prop">--text</span>: <span class="val">black</span>;
+}
+
+<span class="sel">.dark</span> {
+  <span class="prop">--bg</span>:   <span class="val">black</span>;
+  <span class="prop">--text</span>: <span class="val">white</span>;
+}
+
+<span class="sel">body</span> {
+  <span class="prop">background</span>: <span class="val">var(--bg)</span>;
+  <span class="prop">color</span>:      <span class="val">var(--text)</span>;
+}</pre>
+            <div class="var-demo">
+              <div class="theme-card theme-light">
+                <div class="theme-tag">Light</div>
+                <div class="theme-text">Texte principal</div>
+                <div class="theme-sub">--bg: white · --text: black</div>
+              </div>
+              <div class="theme-card theme-dark">
+                <div class="theme-tag">Dark</div>
+                <div class="theme-text">Texte principal</div>
+                <div class="theme-sub">--bg: black · --text: white</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EX 7 -->
+      <section class="section" id="ex7">
+        <div class="section-head">
+          <span class="ex-pill">EX 07</span>
+          <h2>Animations</h2>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-title">Bouton — Transition au survol</span>
+          </div>
+          <div class="card-body">
+            <pre><span class="sel">button</span> { <span class="prop">transition</span>: <span class="val">0.3s</span>; }
+
+<span class="sel">button:hover</span> {
+  <span class="prop">background</span>: <span class="val">blue</span>;
+  <span class="prop">color</span>: <span class="val">white</span>;
+}</pre>
+            <div class="anim-demo">
+              <button class="demo-btn">Survolez-moi</button>
+              <span class="anim-label">← démo interactive</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-title">Spinner — Animation @keyframes</span>
+          </div>
+          <div class="card-body">
+            <pre><span class="at">@keyframes</span> spin {
+  <span class="kw">from</span> { <span class="prop">transform</span>: <span class="val">rotate(0deg)</span>; }
+  <span class="kw">to</span>   { <span class="prop">transform</span>: <span class="val">rotate(360deg)</span>; }
+}
+
+<span class="sel">.loader</span> {
+  <span class="prop">animation</span>: <span class="val">spin 1s linear infinite</span>;
+}</pre>
+            <div class="anim-demo">
+              <div class="demo-spinner"></div>
+              <span class="anim-label">← démo interactive</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EX 8 -->
+      <section class="section" id="ex8">
+        <div class="section-head">
+          <span class="ex-pill">EX 08</span>
+          <h2>Quiz — Réponses</h2>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-title">Corrigé du Quiz</span>
+          </div>
+          <div class="card-body">
+            <div class="quiz-grid">
+              <div class="quiz-item">
+                <span class="q-num">Q1</span>
+                <div><span class="q-correct">✓ b)</span>Le sélecteur le plus spécifique est <code>#header a</code></div>
+              </div>
+              <div class="quiz-item">
+                <span class="q-num">Q2</span>
+                <div><span class="q-correct">✓ b)</span>Largeur avec <code>border-box</code> = <code>200px</code></div>
+              </div>
+              <div class="quiz-item">
+                <span class="q-num">Q3</span>
+                <div><span class="q-correct">✓ c)</span>Centrage Flexbox : <code>justify-content</code> + <code>align-items</code></div>
+              </div>
+              <div class="quiz-item">
+                <span class="q-num">Q4</span>
+                <div><span class="q-correct">✓ b)</span><code>1fr</code> = 1 fraction de l'espace disponible</div>
+              </div>
+              <div class="quiz-item">
+                <span class="q-num">Q5</span>
+                <div><span class="q-correct">✓ b)</span>Approche mobile-first → utiliser <code>min-width</code></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    Correction TP CSS3 
+  </footer>
+
+</body>
+</html>
